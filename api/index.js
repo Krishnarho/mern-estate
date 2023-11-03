@@ -2,6 +2,7 @@ const connectToMongo = require('./db');
 const express = require('express');
 const userRouter = require('./routes/user.route.js')
 const authRouter = require('./routes/auth.route.js')
+const dotenv = require('dotenv').config();
 
 connectToMongo();
 

@@ -31,7 +31,7 @@ export default function Signup() {
 			  setError(null);
 			  navigate('/sign-in');
 		} catch (error) {
-			console.log(error.message)
+			setError(error.message)
 		}
 	} else{
 		setError('Password does not match!')

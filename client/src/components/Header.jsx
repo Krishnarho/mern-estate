@@ -7,9 +7,9 @@ export default function Header() {
     <header className='bg-slate-200 shadow-md p-1 sm:p-3'>
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
 		<Link to="/">
-        <h1 className='font-bold text-sm sm:text-xl flex flex-wrap'>
-            <span className='text-green-500'>Sirsa</span>
-            <span className='text-green-700'>Estate</span>
+        <h1 className='font-black text-sm sm:text-xl flex flex-wrap'>
+            <span className='text-green-500 md:text-3xl'>Sirsa</span>
+            <span className='text-green-700  md:text-3xl'>Estate</span>
         </h1>
 		</Link>
 		<form className='bg-slate-100 p-1 sm:p-2 rounded-lg flex items-center'>

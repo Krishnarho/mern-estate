@@ -2,9 +2,10 @@ const connectToMongo = require('./db');
 const express = require('express');
 const userRouter = require('./routes/user.route.js')
 const authRouter = require('./routes/auth.route.js')
-const dotenv = require('dotenv').config();
+const dotenv = require('dotenv')
 
 connectToMongo();
+dotenv.config();
 
 const app = express();
 app.use(express.json());
@@ -20,11 +21,11 @@ app.listen(port, () => {
 // Creating a middleware
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
-    return res.json({
+    const message = err.message || 'Internal Server Error';
+    return res.status(statusCode).json({
         success: false,
         statusCode,
-        message
-    })
-})
+        message,
+    });
+});
 

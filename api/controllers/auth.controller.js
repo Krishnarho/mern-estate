@@ -34,5 +34,5 @@ const signin = async (req, res, next) => {
     }
 }
 
-module.exports = signup;
-module.exports = signin;
+module.exports = { signin, signup };
+//module.exports = signin;

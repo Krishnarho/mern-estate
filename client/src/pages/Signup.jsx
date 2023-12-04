@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import GAuth from '../components/GAuth';
 
 export default function Signup() {
 	const [data, setData] = useState({});
@@ -50,7 +51,8 @@ export default function Signup() {
 				<input type="password" id="password" className='text-sm border rounded focus:outline-green-500 mb-3 p-2 w-full' onChange={onChange} required />
 				<label id="cPassword">Confirm Password:</label>
 				<input type="password" id="cPassword" className='text-sm border rounded focus:outline-green-500 mb-3 p-2 w-full' onChange={onChange} required />
-				<button disabled={loading} type="submit" className='mx-auto block mt-5 bg-green-500 py-2 px-5 rounded-md text-white text-md  hover:opacity-95 disabled:opacity-85'>{loading ? 'Loading...' : 'Register'}</button>
+				<button disabled={loading} type="submit" className='mx-auto block mt-5 bg-green-500 py-1 px-5 rounded-md text-white text-md  hover:opacity-95 disabled:opacity-85'>{loading ? 'Loading...' : 'Register'}</button>
+				<GAuth />
 				<span className='block text-center mt-5 text-sm'>Have an account... <Link to="/sign-in" className='text-blue-500 hover:underline'>Sign in</Link></span>
 			</form>
 		</div>

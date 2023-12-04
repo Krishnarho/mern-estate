@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { signInStart, signInSuccess, signInFailure } from '../redux/features/user/userSlice';
+import GAuth from '../components/GAuth';
 
 export default function Signin() {
 	const [data, setData] = useState({});
@@ -46,7 +47,8 @@ export default function Signin() {
 				<input type="email" id="email" className='text-sm border rounded focus:outline-green-500 mb-3 p-2 w-full' onChange={onChange} required />
 				<label id="password">Password:</label>
 				<input type="password" id="password" className='text-sm border rounded focus:outline-green-500 mb-3 p-2 w-full' onChange={onChange} required />
-				<button disabled={loading} type="submit" className='mx-auto block mt-5 bg-green-500 py-2 px-5 rounded-md text-white text-md  hover:opacity-95 disabled:opacity-85'>{loading ? 'Loading...' : 'Login'}</button>
+				<button disabled={loading} type="submit" className='mx-auto block mt-5 bg-green-500 py-1 px-5 rounded-md text-white text-md  hover:opacity-95 disabled:opacity-85'>{loading ? 'Loading...' : 'Login'}</button>
+				<GAuth />
 				<span className='block text-center mt-5 text-sm'>Dont have an account... <Link to="/sign-up" className='text-blue-500 hover:underline'>Sign Up</Link></span>
 			</form>
 		</div>

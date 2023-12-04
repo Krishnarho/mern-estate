@@ -32,7 +32,7 @@ export default function Signin() {
 				return;
 			}
 			dispatch(signInSuccess(dataAPI))
-			navigate('/profile');
+			navigate('/');
 		} catch (error) {
 			dispatch(signInFailure(error.message))
 		}

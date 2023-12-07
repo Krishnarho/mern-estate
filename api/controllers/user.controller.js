@@ -1,5 +1,38 @@
+const User = require("../models/user.model.js");
+const errorHandler = require("../utils/error");
+const brcyptjs = require('bcryptjs');
+
 const test = (req, res) => {
     res.json({ action: "Holy cow!" })
 }
 
-module.exports = test;
+const updateUser = async (req, res, next) => {
+    if (req.user.id !== req.params.id) (next(errorHandler(401, 'You can only update your own account!')))
+
+    try {
+        if (req.body.password) {
+            req.body.password = brcyptjs.hashSync(req.body.password, 10);
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+            req.params.id,
+            {
+                $set: {
+                    username: req.body.username,
+                    email: req.body.email,
+                    password: req.body.password,
+                    avatar: req.body.avatar
+                }
+            },
+            { new: true }
+        )
+
+        const { password, ...rest } = updatedUser._doc;
+
+        res.status(201).json(rest);
+    } catch (err) {
+        next(err);
+    }
+}
+
+module.exports = { test, updateUser };

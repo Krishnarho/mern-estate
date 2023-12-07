@@ -35,7 +35,7 @@ function GAuth() {
         <button
             type="button"
             onClick={handleGoogle}
-            className='mx-auto block mt-3 bg-gradient-to-r from-indigo-500 to-red-600 py-1 px-5 rounded-md text-white text-md  hover:opacity-95 disabled:opacity-85'
+            className='mt-3 bg-gradient-to-r from-indigo-500 to-red-600 py-1 px-5 rounded-md text-white text-md  hover:opacity-95 disabled:opacity-85'
         > Continue with Google</button>
     )
 }

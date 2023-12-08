@@ -23,7 +23,7 @@ export default function Signup() {
 				})
 				const dataAPI = await response.json();
 				console.log(dataAPI);
-				if (dataAPI.success === false) {
+				if (dataAPI.success === false) { // if there is error middleware in api gets called which returns an object with keys "success, statusCode, message"
 					setLoading(false);
 					setError(dataAPI.message);
 					return;

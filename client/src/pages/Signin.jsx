@@ -27,7 +27,7 @@ export default function Signin() {
 			})
 			const dataAPI = await response.json();
 
-			if (dataAPI.success === false) {
+			if (dataAPI.success === false) { // if there is error middleware in api gets called which returns an object with keys "success, statusCode, message"
 				dispatch(signInFailure(dataAPI.message));
 				return;
 			}

@@ -6,9 +6,11 @@ import GAuth from '../components/GAuth';
 
 export default function Signin() {
 	const [data, setData] = useState({});
-	const { error, loading } = useSelector(state => state.user)
+	const { currentUser, error, loading } = useSelector(state => state.user)
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	//if (currentUser.username) { navigate('/profile') }; // Todo handle if user is already sign in
 
 	const onChange = (e) => {
 		setData({ ...data, [e.target.id]: e.target.value });

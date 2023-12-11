@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateStart, updateFailure, updateSuccess, deleteUserStart, deleteUserSuccess, deleteUserFailure, signoutUserStart, signoutUserSuccess, signoutUserFailure } from '../redux/features/user/userSlice';
 import { app } from '../firebase';
@@ -166,7 +167,10 @@ export default function Profile() {
 					disabled={loading}
 					className='bg-sky-500 text-white mt-2 py-2 uppercase rounded hover:opacity-95 disabled:opacity-80'
 				>{loading ? 'Loading...' : 'Save'}</button>
-				<div className='flex justify-between mt-5 text-red-700 text-sm'>
+				<Link to='/create-listing'
+					className='bg-purple-500 text-white text-center rounded uppercase mt-1 py-2 hover:opacity-80'
+				>Create listing</Link>
+				<div className='flex justify-between mt-2 text-red-700 text-sm'>
 					<span
 						onClick={handleDeleteUser}
 						className='cursor-pointer'

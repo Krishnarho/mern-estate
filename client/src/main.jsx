@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx';
 import './index.css';
 import { RouterProvider, Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
-import { Home, About, Signin, Signup, Profile } from './pages/index';
+import { Home, About, Signin, Signup, Profile, CreateListing } from './pages/index';
 import { persistor, store } from './redux/store.js';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -18,6 +18,7 @@ const router = createBrowserRouter(
 			<Route path="/sign-up" element={<Signup />} />
 			<Route element={<PrivateRoute />}>
 				<Route path="/profile" element={<Profile />} />
+				<Route path="/create-listing" element={<CreateListing />} />
 			</Route>
 		</Route>
 	)

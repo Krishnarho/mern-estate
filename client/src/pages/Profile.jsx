@@ -12,6 +12,7 @@ export default function Profile() {
 	const [fileUploadError, setFileUploadError] = useState(false)
 	const [formData, setFormData] = useState({})
 	const [editSuccess, setEditSuccess] = useState(false)
+	const [isEditable, setIsEditable] = useState(false)
 	const fileRef = useRef(null)
 
 	useEffect(() => {
@@ -65,6 +66,10 @@ export default function Profile() {
 			}
 			dispatch(updateSuccess(data))
 			setEditSuccess(true);
+			setTimeout(() => {
+				setEditSuccess(false)
+			}, 1500)
+			setIsEditable(false)
 		} catch (err) {
 			dispatch(updateFailure(err.message))
 		}
@@ -83,7 +88,7 @@ export default function Profile() {
 			}
 			dispatch(deleteUserSuccess(data));
 		} catch (err) {
-			dispatch(updateFailure(err.message))
+			dispatch(deleteUserFailure(err.message))
 		}
 	}
 
@@ -106,6 +111,7 @@ export default function Profile() {
 			<h1 className='text-center text-3xl mt-3 font-semibold'>Profile</h1>
 			<form onSubmit={handleSubmit} className='flex flex-col gap-4'>
 				<input
+					disabled={!isEditable}
 					onChange={e => setFile(e.target.files[0])}
 					type='file' ref={fileRef} hidden accept='image/*'
 				/>
@@ -113,7 +119,7 @@ export default function Profile() {
 					src={formData.avatar || currentUser.avatar}
 					onClick={() => fileRef.current.click()}
 					alt="avatar"
-					className='rounded-full h-24 w-24 object-cover self-center mt-4 cursor-pointer'
+					className={`rounded-full h-24 w-24 object-cover self-center mt-4 ${!isEditable ? 'cursor-default' : 'cursor-pointer'}`}
 				/>
 				<p className='text-sm text-center'>
 					{
@@ -130,26 +136,36 @@ export default function Profile() {
 				</p>
 				<input
 					type="text"
-					className='rounded border p-3' placeholder='username' id='username'
+					className='rounded border p-3 focus:outline-none' placeholder='username' id='username'
 					defaultValue={currentUser.username}
 					onChange={handleChange}
+					disabled={!isEditable}
 				/>
 				<input
 					type="email"
-					className='rounded border p-3' placeholder='email' id='email'
+					className='rounded border p-3 focus:outline-none' placeholder='email' id='email'
 					defaultValue={currentUser.email}
 					onChange={handleChange}
+					disabled={!isEditable}
 				/>
 				<input
 					type="password"
-					className='rounded border p-3'
+					className='rounded border p-3 focus:outline-none'
 					placeholder='password' id='password'
 					onChange={handleChange}
+					disabled={!isEditable}
 				/>
 				<button
+					hidden={isEditable}
+					type='button'
+					className='bg-cyan-500 text-white mt-2 py-2 uppercase rounded hover:opacity-95 disabled:opacity-80'
+					onClick={() => setIsEditable(true)}
+				>Edit</button>
+				<button
+					hidden={!isEditable}
 					disabled={loading}
-					className='bg-sky-500 text-white mt-2 py-1 uppercase rounded hover:opacity-95 disabled:opacity-80'
-				>{loading ? 'Loading...' : 'Update'}</button>
+					className='bg-sky-500 text-white mt-2 py-2 uppercase rounded hover:opacity-95 disabled:opacity-80'
+				>{loading ? 'Loading...' : 'Save'}</button>
 				<div className='flex justify-between mt-5 text-red-700 text-sm'>
 					<span
 						onClick={handleDeleteUser}
@@ -161,10 +177,8 @@ export default function Profile() {
 					>Sign out</span>
 				</div>
 
-				<p className='text-red-700 text-center'>{error ? error : ''}</p>
-				<p className='text-green-700 text-center'>
-					{editSuccess ? 'User is updated successfully!' : ''}
-				</p>
+				{error && <p className='text-red-700 text-center'>{error}</p>}
+				{editSuccess && <p className='text-green-700 text-center'>User updated successfully!!</p>}
 			</form>
 		</div>
 	)

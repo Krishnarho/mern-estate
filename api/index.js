@@ -2,6 +2,7 @@ const connectToMongo = require('./db');
 const express = require('express');
 const userRouter = require('./routes/user.route.js')
 const authRouter = require('./routes/auth.route.js')
+const listingRouter = require('./routes/listing.route.js')
 const cookieParser = require('cookie-parser')
 const dotenv = require('dotenv')
 
@@ -14,6 +15,7 @@ app.use(cookieParser());
 
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/listing', listingRouter);
 
 const port = 5000;
 app.listen(port, () => {

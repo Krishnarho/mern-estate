@@ -14,6 +14,8 @@ export default function Profile() {
 	const [formData, setFormData] = useState({})
 	const [editSuccess, setEditSuccess] = useState(false)
 	const [isEditable, setIsEditable] = useState(false)
+	const [showListing, setShowListing] = useState([])
+	const [listingError, setListingError] = useState(false)
 	const fileRef = useRef(null)
 
 	useEffect(() => {
@@ -107,6 +109,22 @@ export default function Profile() {
 		}
 	}
 
+	const handleListing = async () => {
+		try {
+			setListingError(false);
+			const res = await fetch(`/api/user/listings/${currentUser._id}`)
+			const data = await res.json()
+			console.log(data);
+			if (data.success === false) {
+				setListingError(true)
+				return
+			}
+			setShowListing(data)
+		} catch (error) {
+			setListingError(true)
+		}
+	}
+
 	return (
 		<div className='p-3 max-w-lg mx-auto shadow-md rounded mt-3'>
 			<h1 className='text-center text-3xl mt-3 font-semibold'>Profile</h1>
@@ -183,6 +201,37 @@ export default function Profile() {
 
 				{error && <p className='text-red-700 text-center'>{error}</p>}
 				{editSuccess && <p className='text-green-700 text-center'>User updated successfully!!</p>}
+				<button
+					type='button'
+					onClick={handleListing}
+					className='text-green-700'
+				>Show Listings</button>
+				<p className='text-red-700'>
+					{listingError ? 'Error showing listings' : ''}
+				</p>
+				{showListing && showListing.length > 0 &&
+					<div className='flex flex-col gap-4'>
+						<h1 className='text-2xl font-semibold text-center'>Your Listing</h1>
+						{
+							showListing.map(listing => (
+								<div key={listing._id}
+									className='flex justify-between items-center border gap-4 p-3 rounded-lg'
+								>
+									<Link to={`/listing/${listing._id}`} className=''>
+										<img src={listing.imageUrls[0]} alt="listing Cover" className='w-16 h-18 object-contain' />
+									</Link>
+									<Link to={`/listing/${listing._id}`} className='text-slate-700 font-semibold  hover:underline truncate flex-1'>
+										<p>{listing.name}</p>
+									</Link>
+									<div className='flex flex-col item-center'>
+										<button className='text-red-700 uppercase'>Delete</button>
+										<button className='text-green-700 uppercase'>Edit</button>
+									</div>
+								</div>
+							))
+						}
+					</div>
+				}
 			</form>
 		</div>
 	)

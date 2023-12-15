@@ -8,7 +8,7 @@ const test = (req, res) => {
 }
 
 const updateUser = async (req, res, next) => {
-    if (req.user.id !== req.params.id) (next(errorHandler(401, 'You can only update your own account!'))) // req.user returned from verifyUser
+    if (req.user.id !== req.params.id) (next(errorHandler(401, 'You can only update your own account!'))) // req.user comes from verifyUser
 
     try {
         if (req.body.password) {

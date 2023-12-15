@@ -1,3 +1,4 @@
+const Listing = require("../models/listing.model.js");
 const User = require("../models/user.model.js");
 const errorHandler = require("../utils/error");
 const brcyptjs = require('bcryptjs');
@@ -7,7 +8,7 @@ const test = (req, res) => {
 }
 
 const updateUser = async (req, res, next) => {
-    if (req.user.id !== req.params.id) (next(errorHandler(401, 'You can only update your own account!')))
+    if (req.user.id !== req.params.id) (next(errorHandler(401, 'You can only update your own account!'))) // req.user returned from verifyUser
 
     try {
         if (req.body.password) {
@@ -41,12 +42,23 @@ const deleteUser = async (req, res, next) => {
     try {
         await User.findByIdAndDelete(req.params.id);
         res.clearCookie('access_token');
-        res.status(200).json('User has been deleted..')
+        res.status(200).json('User has been deleted..');
     } catch (error) {
         next(error)
     }
 }
 
+const getUserListing = async (req, res, next) => {
+    if (req.user.id === req.params.id) {
+        try {
+            const listings = await Listing.find({ userRef: req.params.id });
+            res.status(200).json(listings);
+        } catch (error) {
+            next(error)
+        }
+    } else {
+        return next(errorHandler(401, 'You can only view your own listing!'))
+    }
+}
 
-
-module.exports = { test, updateUser, deleteUser };
+module.exports = { test, updateUser, deleteUser, getUserListing };

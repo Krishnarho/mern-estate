@@ -114,7 +114,7 @@ export default function Profile() {
 			setListingError(false);
 			const res = await fetch(`/api/user/listings/${currentUser._id}`)
 			const data = await res.json()
-			console.log(data);
+			//console.log(data);
 			if (data.success === false) {
 				setListingError(true)
 				return
@@ -122,6 +122,23 @@ export default function Profile() {
 			setShowListing(data)
 		} catch (error) {
 			setListingError(true)
+		}
+	}
+
+	const handleDeleteListing = async (listingId) => {
+		console.log(listingId);
+		try {
+			const res = await fetch(`/api/listing/delete/${listingId}`, {
+				method: "DELETE"
+			});
+			const data = await res.json();
+			if (data.success === false) {
+				console.log(data.message);
+				return
+			}
+			setShowListing((prev) => prev.filter(listing => listing._id !== listingId))
+		} catch (error) {
+			console.log(error.message)
 		}
 	}
 
@@ -220,11 +237,15 @@ export default function Profile() {
 									<Link to={`/listing/${listing._id}`} className=''>
 										<img src={listing.imageUrls[0]} alt="listing Cover" className='w-16 h-18 object-contain' />
 									</Link>
-									<Link to={`/listing/${listing._id}`} className='text-slate-700 font-semibold  hover:underline truncate flex-1'>
+									<Link to={`/listing/${listing._id}`} className='text-slate-700 font-semibold truncate hover:underline flex-1'>
 										<p>{listing.name}</p>
 									</Link>
 									<div className='flex flex-col item-center'>
-										<button className='text-red-700 uppercase'>Delete</button>
+										<button
+											type='button'
+											onClick={() => handleDeleteListing(listing._id)}
+											className='text-red-700 uppercase'
+										>Delete</button>
 										<button className='text-green-700 uppercase'>Edit</button>
 									</div>
 								</div>

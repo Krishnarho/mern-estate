@@ -234,11 +234,11 @@ export default function Profile() {
 								<div key={listing._id}
 									className='flex justify-between items-center border gap-4 p-3 rounded-lg'
 								>
-									<Link to={`/listing/${listing._id}`} className=''>
+									<Link to={`/listing/${listing._id}`}>
 										<img src={listing.imageUrls[0]} alt="listing Cover" className='w-16 h-18 object-contain' />
 									</Link>
-									<Link to={`/listing/${listing._id}`} className='text-slate-700 font-semibold truncate hover:underline flex-1'>
-										<p>{listing.name}</p>
+									<Link to={`/listing/${listing._id}`} className='text-slate-700 truncate font-semibold hover:underline flex-1'>
+										<p className=''>{listing.name}</p>
 									</Link>
 									<div className='flex flex-col item-center'>
 										<button

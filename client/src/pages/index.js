@@ -5,5 +5,6 @@ import Signup from './Signup';
 import Profile from './Profile';
 import CreateListing from './CreateListing';
 import UpdateListing from './UpdateListing';
+import Listing from './Listing';
 
-export { Home, About, Signin, Signup, Profile, CreateListing, UpdateListing }
+export { Home, About, Signin, Signup, Profile, CreateListing, UpdateListing, Listing }

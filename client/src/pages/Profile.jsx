@@ -218,11 +218,13 @@ export default function Profile() {
 
 				{error && <p className='text-red-700 text-center'>{error}</p>}
 				{editSuccess && <p className='text-green-700 text-center'>User updated successfully!!</p>}
-				<button
-					type='button'
-					onClick={handleListing}
-					className='text-green-700'
-				>Show Listings</button>
+				{showListing && showListing.length === 0 &&
+					<button
+						type='button'
+						onClick={handleListing}
+						className='text-green-700'
+					>Show Listings</button>
+				}
 				<p className='text-red-700'>
 					{listingError ? 'Error showing listings' : ''}
 				</p>

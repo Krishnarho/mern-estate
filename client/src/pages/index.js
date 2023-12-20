@@ -6,5 +6,6 @@ import Profile from './Profile';
 import CreateListing from './CreateListing';
 import UpdateListing from './UpdateListing';
 import Listing from './Listing';
+import Search from './Search';
 
-export { Home, About, Signin, Signup, Profile, CreateListing, UpdateListing, Listing }
+export { Home, About, Signin, Signup, Profile, CreateListing, UpdateListing, Listing, Search }

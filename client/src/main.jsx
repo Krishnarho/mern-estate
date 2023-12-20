@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx';
 import './index.css';
 import { RouterProvider, Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
-import { Home, About, Signin, Signup, Profile, CreateListing, UpdateListing, Listing } from './pages/index';
+import { Home, About, Signin, Signup, Profile, CreateListing, UpdateListing, Listing, Search } from './pages/index';
 import { persistor, store } from './redux/store.js';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -16,6 +16,7 @@ const router = createBrowserRouter(
 			<Route path="/about" element={<About />} />
 			<Route path="/sign-in" element={<Signin />} />
 			<Route path="/sign-up" element={<Signup />} />
+			<Route path='/search' element={<Search />} />
 			<Route path="/listing/:listingId" element={<Listing />} />
 			<Route element={<PrivateRoute />}>
 				<Route path="/profile" element={<Profile />} />
@@ -28,7 +29,7 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<Provider store={store}>
-		<PersistGate loadin={null} persistor={persistor}>
+		<PersistGate loading={null} persistor={persistor}>
 			<RouterProvider router={router} />
 		</PersistGate>
 	</Provider>

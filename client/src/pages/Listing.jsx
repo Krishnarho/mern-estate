@@ -58,7 +58,7 @@ function Listing() {
                         }
                     </Swiper>
 
-                    <div className='flex flex-col gap-4 max-w-4xl mx-auto my-7 p-3'>
+                    <div className='flex flex-col gap-4 max-w-4xl mx-auto my-5 p-3'>
                         <p className='text-2xl font-semibold'>
                             {listing.name} - Rs.
                             {listing.offer
@@ -66,7 +66,7 @@ function Listing() {
                                 : listing.regularPrice.toLocaleString('en-NP')}
                             {listing.type === 'rent' && ' / month'}
                         </p>
-                        <p className=' mt-5 flex items-center gap-2 text-slate-600 text-sm'>
+                        <p className='mt-5 flex items-center gap-2 text-slate-600 text-sm'>
                             <FaMapMarkerAlt className='text-green-600' />
                             {listing.address}
                         </p>

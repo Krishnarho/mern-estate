@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateStart, updateFailure, updateSuccess, deleteUserStart, deleteUserSuccess, deleteUserFailure, signoutUserStart, signoutUserSuccess, signoutUserFailure } from '../redux/features/user/userSlice';
 import { app } from '../firebase';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
+import { FaTrashAlt, FaPenSquare } from "react-icons/fa";
 
 export default function Profile() {
 	const { currentUser, loading, error } = useSelector(state => state.user)
@@ -242,14 +243,14 @@ export default function Profile() {
 									<Link to={`/listing/${listing._id}`} className='text-slate-700 truncate font-semibold hover:underline flex-1'>
 										<p className=''>{listing.name}</p>
 									</Link>
-									<div className='flex flex-col item-center'>
+									<div className='flex flex-col justify-center mt-2 gap-2'>
 										<button
 											type='button'
 											onClick={() => handleDeleteListing(listing._id)}
-											className='text-red-700 uppercase'
-										>Delete</button>
+											className='text-red-700'
+										><FaTrashAlt /></button>
 										<Link to={`/update-listing/${listing._id}`}>
-											<button className='text-green-700 uppercase'>Edit</button>
+											<button className='text-green-700'><FaPenSquare /></button>
 										</Link>
 									</div>
 								</div>

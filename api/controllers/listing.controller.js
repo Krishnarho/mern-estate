@@ -81,14 +81,14 @@ const getListings = async (req, res, next) => {
             type = { $in: ['sale', 'rent'] };
         }
 
-        const searchTerm = req.query.searchTerm || '';
+        const keyword = req.query.keyword || '';
 
         const sort = req.query.sort || 'createdAt';
 
         const order = req.query.order || 'desc';
 
         const listings = await Listing.find({
-            name: { $regex: searchTerm, $options: "i" },
+            name: { $regex: keyword, $options: "i" },
             offer,
             furnished,
             parking,

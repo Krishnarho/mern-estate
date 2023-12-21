@@ -74,9 +74,11 @@ function Listing() {
                             <p className='bg-teal-800 p-1 rounded-md text-white text-center w-full max-w-[200px]'>
                                 {listing.type === 'rent' ? 'For Rent' : 'For Sale'}
                             </p>
-                            <p className='bg-pink-800 p-1 rounded-md text-white text-center w-full max-w-[200px]'>
-                                Rs. {+listing.regularPrice - +listing.discountPrice}
-                            </p>
+                            {listing.offer &&
+                                <p className='bg-pink-800 p-1 rounded-md text-white text-center w-full max-w-[200px]'>
+                                    Rs. {+listing.regularPrice - +listing.discountPrice} OFF
+                                </p>
+                            }
                         </div>
                         <p className='text-slate-700'>
                             <span className='font-semibold text-black'>Description- </span>

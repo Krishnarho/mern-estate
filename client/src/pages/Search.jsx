@@ -7,6 +7,7 @@ function Search() {
     const [listings, setListings] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false)
+    const [showMore, setShowMore] = useState(false)
     const [searchData, setSearchData] = useState({
         keyword: '',
         type: 'all',
@@ -43,8 +44,14 @@ function Search() {
             const searchQuery = urlParams.toString();
             try {
                 setLoading(true)
+                setShowMore(false);
                 const res = await fetch(`/api/listing/get?${searchQuery}`);
                 const data = await res.json();
+                if (data.length > 8) {
+                    setShowMore(true);
+                } else {
+                    setShowMore(fasle)
+                }
                 setListings(data);
                 setLoading(false)
             } catch (error) {
@@ -91,6 +98,20 @@ function Search() {
 
         const searchQuery = urlParams.toString();
         navigate(`/search?${searchQuery}`)
+    }
+
+    const onShowMoreClick = async () => {
+        const numberOfListings = listings.length;
+        const startIndex = numberOfListings;
+        const urlParams = new URLSearchParams(location.search);
+        urlParams.set('startIndex', startIndex);
+        const searchQuery = urlParams.toString();
+        const res = await fetch(`/api/listing/get?${searchQuery}`);
+        const data = await res.json();
+        if (data.length < 9) {
+            setShowMore(false);
+        }
+        setListings([...listings, ...data]);
     }
     return (
         <div className='flex flex-col md:flex-row w-full max-w-7xl mx-auto'>
@@ -191,6 +212,12 @@ function Search() {
                         listings.map((listing) => (
                             <ListingItem key={listing._id} listing={listing} />
                         ))
+                    }
+                    {showMore &&
+                        <button
+                            onClick={onShowMoreClick}
+                            className='text-green-700 hover:underline p-7 text-center w-full'
+                        >Show more...</button>
                     }
                 </div>
             </div>

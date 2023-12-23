@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import ListingItem from '../components/ListingItem';
+import Loading from '../components/Loading';
 
 function Search() {
     const navigate = useNavigate();
@@ -50,7 +51,7 @@ function Search() {
                 if (data.length > 8) {
                     setShowMore(true);
                 } else {
-                    setShowMore(fasle)
+                    setShowMore(false)
                 }
                 setListings(data);
                 setLoading(false)
@@ -206,7 +207,8 @@ function Search() {
                         <p className='text-slate-500 text-xl'>No listing found..</p>
                     }
                     {loading &&
-                        <p className='text-slate-700 w-full text-center text-xl'>Loading...</p>
+                        <Loading />
+                        // <p className='text-slate-700 w-full text-center text-xl'>Loading...</p>
                     }
                     {!loading && listings &&
                         listings.map((listing) => (

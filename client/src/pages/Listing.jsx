@@ -8,6 +8,7 @@ import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css/bundle';
 import Contact from '../components/Contact';
+import Loading from '../components/Loading';
 
 function Listing() {
     SwiperCore.use([Navigation]);
@@ -43,7 +44,7 @@ function Listing() {
 
     return (
         <main>
-            {loading && <p className='text-center mt-5 text-2xl'>Loading...</p>}
+            {loading && <div className="mt-5" ><Loading /></div>}
             {error && <p className='text-center mt-5 text-red-700'>Someting went wrong!</p>}
             {listing && !loading && !error &&
                 <>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { signInStart, signInSuccess, signInFailure } from '../redux/features/user/userSlice';
@@ -10,7 +10,9 @@ export default function Signin() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	//if (currentUser.username) { navigate('/profile') }; // Todo handle if user is already sign in
+	useEffect(() => {
+		if (currentUser) { navigate('/profile') }; // Todo handle if user is already sign in
+	}, [])
 
 	const onChange = (e) => {
 		setData({ ...data, [e.target.id]: e.target.value });

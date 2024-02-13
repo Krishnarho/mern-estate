@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { signInStart, signInSuccess, signInFailure } from '../redux/features/user/userSlice';
@@ -9,10 +9,6 @@ export default function Signin() {
 	const { currentUser, error, loading } = useSelector(state => state.user)
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		if (currentUser) { navigate('/profile') }; // Todo handle if user is already sign in
-	}, [])
 
 	const onChange = (e) => {
 		setData({ ...data, [e.target.id]: e.target.value });
@@ -42,7 +38,7 @@ export default function Signin() {
 		}
 	};
 
-	return (
+	return currentUser === null ? (
 		<div className='mx-auto sm:max-w-md sm:rounded-lg sm:shadow-md my-3 bg-white'>
 			<h1 className='text-center my-3 font-semibold text-xl sm:rounded-t-lg  bg-green-500 text-white py-3 mt-0 sm:text-3xl'>Sign In</h1>
 			<form className='my-5 px-2 pb-5 flex flex-col' onSubmit={login}>
@@ -56,5 +52,5 @@ export default function Signin() {
 				<span className='block text-center mt-5 text-sm'>Don't have an account... <Link to="/sign-up" className='text-blue-500 hover:underline'>Sign Up</Link></span>
 			</form>
 		</div>
-	)
+	) : navigate('/profile')
 }

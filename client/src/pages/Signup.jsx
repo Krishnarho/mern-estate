@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import GAuth from '../components/GAuth';
+import { useSelector } from 'react-redux';
 
 export default function Signup() {
+	const { currentUser } = useSelector((state) => state.user);
+	console.log(currentUser)
 	const [data, setData] = useState({});
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
@@ -38,7 +41,7 @@ export default function Signup() {
 			setError('Password does not match!')
 		}
 	};
-	return (
+	return (currentUser === null &&
 		<div className='mx-auto sm:max-w-md sm:rounded-lg sm:shadow-md my-3 bg-white'>
 			<h1 className='text-center my-3 font-semibold text-xl sm:rounded-t-lg  bg-green-500 text-white py-3 mt-0 sm:text-3xl'>Sign Up</h1>
 			<form className='my-5 px-2 pb-5 flex flex-col' onSubmit={register}>
